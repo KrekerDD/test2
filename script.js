@@ -138,6 +138,22 @@ const questions = [
 let currentQuestion = -1;
 const answers = [];
 
+const savedAnswers =
+    JSON.parse(
+        localStorage.getItem("sundayAnswers")
+    );
+
+const savedQuestion =
+    localStorage.getItem("sundayQuestion");
+
+if (savedAnswers) {
+
+    savedAnswers.forEach(answer => {
+        answers.push(answer);
+    });
+
+}
+
 const content = document.getElementById("content");
 
 document
@@ -146,7 +162,16 @@ document
 
 function startQuestions() {
 
-    currentQuestion = 0;
+    if (savedQuestion !== null) {
+
+        currentQuestion =
+            Number(savedQuestion);
+
+    } else {
+
+        currentQuestion = 0;
+
+    }
 
     renderQuestion();
 }
@@ -181,7 +206,7 @@ if (currentQuestion === 6) {
     id="answer"
     rows="6"
     placeholder="Чирикать тут..."
-></textarea>
+>${answers[currentQuestion] || ""}</textarea>
 
 <button id="nextBtn">
     ${questions[currentQuestion].button}
@@ -211,10 +236,24 @@ async function nextQuestion() {
 
     answers[currentQuestion] = answer;
 
+localStorage.setItem(
+    "sundayAnswers",
+    JSON.stringify(answers)
+);
+
+localStorage.setItem(
+    "sundayQuestion",
+    currentQuestion
+);
 
     if (currentQuestion < questions.length - 1) {
 
         currentQuestion++;
+
+localStorage.setItem(
+    "sundayQuestion",
+    currentQuestion
+);
 
         if (currentQuestion === 5) {
             renderSecretScreen();
@@ -229,6 +268,9 @@ async function nextQuestion() {
 }
 
 function renderSecretScreen() {
+
+localStorage.removeItem("sundayAnswers");
+localStorage.removeItem("sundayQuestion");
 
     document.querySelector(".progress-bar").style.width = "90%";
 
