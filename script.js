@@ -162,15 +162,17 @@ document
 
 function startQuestions() {
 
-    if (savedQuestion !== null) {
+    if (
+        savedQuestion !== null &&
+        savedAnswers &&
+        savedAnswers.length > 0
+    ) {
 
-        currentQuestion =
-            Number(savedQuestion);
+        currentQuestion = Number(savedQuestion);
 
     } else {
 
         currentQuestion = 0;
-
     }
 
     renderQuestion();
@@ -271,6 +273,8 @@ function renderSecretScreen() {
 
 localStorage.removeItem("sundayAnswers");
 localStorage.removeItem("sundayQuestion");
+
+    answers.length = 0;
 
     document.querySelector(".progress-bar").style.width = "90%";
 
