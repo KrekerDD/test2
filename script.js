@@ -273,13 +273,6 @@ function renderSecretScreen() {
 
     document.querySelector(".progress-bar").style.width = "90%";
 
-    localStorage.removeItem("sundayAnswers");
-localStorage.removeItem("sundayQuestion");
-
-answers.length = 0;
-
-currentQuestion = -1;
-
     content.innerHTML = `
         <div class="secret-screen">
 
@@ -387,4 +380,11 @@ content.classList.add("fade-in");
 
 document.querySelector(".progress-bar").style.width =
     "100%";
+    
+    localStorage.removeItem("sundayAnswers");
+    localStorage.removeItem("sundayQuestion");
+
+answers.length = 0;
+
+currentQuestion = -1;
 }
