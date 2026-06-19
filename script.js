@@ -271,12 +271,14 @@ localStorage.setItem(
 
 function renderSecretScreen() {
 
-localStorage.removeItem("sundayAnswers");
+    document.querySelector(".progress-bar").style.width = "90%";
+
+    localStorage.removeItem("sundayAnswers");
 localStorage.removeItem("sundayQuestion");
 
-    answers.length = 0;
+answers.length = 0;
 
-    document.querySelector(".progress-bar").style.width = "90%";
+currentQuestion = -1;
 
     content.innerHTML = `
         <div class="secret-screen">
